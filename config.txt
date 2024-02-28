@@ -78,5 +78,5 @@ otg_mode=1
 arm_boost=1
 
 [all]
-dtparam=act_led_trigger=heartbeat
+dtparam=act_led_trigger=timer
 dtoverlay=dwc2,dr_mode=peripheral
