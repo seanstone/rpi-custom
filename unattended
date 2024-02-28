@@ -16,6 +16,11 @@ sed -i 's| init=.*||' /boot/cmdline.txt
 # set hostname to 'pi'
 raspi-config nonint do_hostname pi
 
+# enable composite gadget system service
+[[ -f /etc/systemd/system/composite-gadget.service ]] && ln -s\
+ /etc/systemd/system/composite-gadget.service\
+ /etc/systemd/system/multi-user.target.wants/
+
 # 3. CLEANING UP AND REBOOTING
 sync
 /usr/lib/raspberrypi-sys-mods/firstboot

@@ -1,0 +1,9 @@
+[Unit]
+Description=USB Composite Gadget
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/create-dual-rndis-and-cdcecm.sh up
+
+[Install]
+WantedBy=multi-user.target

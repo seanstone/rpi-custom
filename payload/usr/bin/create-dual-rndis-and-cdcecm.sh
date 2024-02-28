@@ -228,9 +228,11 @@ un_usb_down() {
 case ${command} in
 up)
     un_usb_up
+    echo heartbeat > /sys/class/leds/ACT/trigger
     ;;
 down)
     un_usb_down
+    echo timer > /sys/class/leds/ACT/trigger
     ;;
 *)
   echo "Create USB Gadget device dual CDC/ECM and rndis V0.1.1 for MAC, Linux and Windows"
