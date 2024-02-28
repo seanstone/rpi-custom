@@ -1,0 +1,21 @@
+# 1. MAKING THE SYSTEM WORK. DO NOT REMOVE
+mount -t tmpfs tmp /run
+mkdir -p /run/systemd
+mount / -o remount,rw
+sed -i 's| init=.*||' /boot/cmdline.txt
+
+# 2. THE USEFUL PART OF THE SCRIPT
+[[ -d /boot/payload/home/pi ]] && sudo -u pi cp --preserve=timestamps -r\
+ /boot/payload/home/pi /home/ && rm -rf /boot/payload/home/pi
+[[ -d /boot/payload ]] && cp --preserve=timestamps -r /boot/payload/* /\
+ && rm -rf /boot/payload
+[[ -f /lib/systemd/system/one-time-script.service ]] && ln -s\
+ /lib/systemd/system/one-time-script.service\
+ /etc/systemd/system/multi-user.target.wants/
+
+# set hostname to 'pi'
+raspi-config nonint do_hostname pi
+
+# 3. CLEANING UP AND REBOOTING
+sync
+/usr/lib/raspberrypi-sys-mods/firstboot
